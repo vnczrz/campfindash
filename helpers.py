@@ -131,7 +131,7 @@ def datetimeformat(value, format='%d-%m-%Y'):
     return value.strftime(format)
 
 
-
+####Created postgresql-encircled-34732 as DATABASE_URL
 
 
 
