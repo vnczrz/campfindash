@@ -1,3 +1,4 @@
+import os
 from os import environ 
 
 SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
