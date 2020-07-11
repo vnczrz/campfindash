@@ -107,7 +107,7 @@ def pie(obj):
 
     ## construct figure
     p = figure(plot_height=325, toolbar_location=None,
-            tools="hover", tooltips="@sector: $@value", sizing_mode="stretch_both")
+            tools="hover", tooltips="@sector: $@value", sizing_mode="scale_both")
     ## construct plot
     p.wedge(x=0, y=1, radius=0.5,
             start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
