@@ -29,11 +29,11 @@ def after_request(response):
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Barkley.915@127.0.0.1/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
-db.create_all()
+
 
 ##option to tell SQLALchemy that for every model it should just 
 #look at the columns that already exist in the table. This is called reflecting
-# db.Model.reflect(db.engine)
+db.Model.reflect(db.engine)
 
 class Congress(db.Model):
     __tablename__ = 'sen'
