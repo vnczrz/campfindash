@@ -33,7 +33,7 @@ db = SQLAlchemy(app)
 
 ##option to tell SQLALchemy that for every model it should just 
 #look at the columns that already exist in the table. This is called reflecting
-db.Model.reflect(db.engine)
+db.Model.metadata.reflect(db.engine)
 
 class Congress(db.Model):
     __tablename__ = 'sen'
