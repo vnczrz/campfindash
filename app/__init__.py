@@ -23,7 +23,7 @@ def after_request(response):
     return response
 
 ##where to find the database and initialize SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Barkley.915@localhost/postgres''
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Barkley.915@localhost/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
 
