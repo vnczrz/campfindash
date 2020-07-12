@@ -1,7 +1,7 @@
 import os
 import helpers
 import jinja2
-import sys, setuptools, tokenize
+import sys
 
 from helpers import usd, datetimeformat
 from flask import Flask, render_template, config
@@ -9,7 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_assets import Environment, Bundle
 
 from sassutils.wsgi import SassMiddleware
-
 
 
 app = Flask(__name__)
@@ -26,7 +25,7 @@ def after_request(response):
 
 
 ##where to find the database and initialize SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Barkley.915@127.0.0.1/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
 
