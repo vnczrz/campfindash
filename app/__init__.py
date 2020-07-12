@@ -27,7 +27,7 @@ def after_request(response):
 
 ##where to find the database and initialize SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Barkley.915@127.0.0.1/postgres'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
 
 ##option to tell SQLALchemy that we’re way too lazy to do that, and for every model it should just 
@@ -52,3 +52,6 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.jinja_env.filters["usd"] = usd
 
 from app import routes
+
+
+# {"Statement":[{"Resource":"https:~~vncprzbucket.s3-us-west-1.amazonaws.com~conDB.sql","Condition":{"DateLessThan":{"AWS:EpochTime":2147483647}}}]}
