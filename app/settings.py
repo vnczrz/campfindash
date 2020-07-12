@@ -1,7 +1,12 @@
 import os
 from os import environ 
 
-DATABASE_URL = 'postgresql://postgres:Barkley.915@127.0.0.1/postgres'
+
+
+DATABASE_URL = environ.get('DATABASE_URL')
 # SQLALCHEMY_DATABASE_URI = os.environ.get('sqlite:///congress.sqlite3')
 SECRET_KEY = environ.get('SECRET_KEY')
 API_KEY = environ.get('API_KEY')
+
+##where to find the database and initialize SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL

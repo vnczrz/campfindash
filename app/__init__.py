@@ -24,8 +24,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-##where to find the database and initialize SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
 
