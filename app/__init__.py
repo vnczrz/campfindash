@@ -16,7 +16,6 @@ app = Flask(__name__)
 
 app.config.from_pyfile('settings.py')
 
-
 # Ensure responses aren't cached
 @app.after_request
 def after_request(response):
@@ -26,7 +25,7 @@ def after_request(response):
     return response
 
 ##where to find the database and initialize SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Barkley.915@127.0.0.1/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
 
