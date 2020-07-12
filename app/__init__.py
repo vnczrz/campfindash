@@ -27,12 +27,13 @@ def after_request(response):
 
 ##where to find the database and initialize SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
+db.create_all()
 
-# ##option to tell SQLALchemy that we’re way too lazy to do that, and for every model it should just 
-# #look at the columns that already exist in the table. This is called reflecting
-# db.Model.metadata.reflect(db.engine)
+##option to tell SQLALchemy that for every model it should just 
+#look at the columns that already exist in the table. This is called reflecting
+# db.Model.reflect(db.engine)
 
 class Congress(db.Model):
     __tablename__ = 'sen'
