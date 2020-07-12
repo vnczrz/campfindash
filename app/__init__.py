@@ -13,7 +13,7 @@ from sassutils.wsgi import SassMiddleware
 
 app = Flask(__name__)
 
-app.config.from_pyfile('settings.py')
+
 
 # Ensure responses aren't cached
 @app.after_request
@@ -25,7 +25,7 @@ def after_request(response):
 
 
 ##where to find the database and initialize SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
 
@@ -47,6 +47,7 @@ app.wsgi_app = SassMiddleware(app.wsgi_app, {
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config.from_pyfile('settings.py')
 
 # Custom filter
 app.jinja_env.filters["usd"] = usd
@@ -54,4 +55,4 @@ app.jinja_env.filters["usd"] = usd
 from app import routes
 
 
-# {"Statement":[{"Resource":"https:~~vncprzbucket.s3-us-west-1.amazonaws.com~conDB.sql","Condition":{"DateLessThan":{"AWS:EpochTime":2147483647}}}]}
+
