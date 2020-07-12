@@ -2,3 +2,5 @@ venv
 .cache
 __pycache__
 codesnippets.py
+dump.json
+app/congress.sqlite3

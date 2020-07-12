@@ -26,7 +26,8 @@ def after_request(response):
     return response
 
 ##where to find the database and initialize SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///congress.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Barkley.915@127.0.0.1/postgres'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
 
 ##option to tell SQLALchemy that we’re way too lazy to do that, and for every model it should just 
