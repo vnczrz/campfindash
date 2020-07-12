@@ -34,8 +34,6 @@ def candidate():
                                        last_name = fullname[1]).first()
         
         ##parse data that cant be displayed by jinja
-        if not search.contact_form:
-            search.contact_form = search.url
         if search.party == "D":
             search.party = "Democrat"
         elif search.party == "R":
@@ -51,8 +49,6 @@ def candidate():
         rows = crp.candidates.contrib(search.crp_id)
         sectors = crp.candidates.sector(search.crp_id)
         
-
-
         """bokeh functions to create plots"""
         gscript, gdiv = bar(rows)
         pscript, pdiv = pie(sectors)

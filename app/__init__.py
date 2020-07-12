@@ -12,8 +12,7 @@ from sassutils.wsgi import SassMiddleware
 
 
 app = Flask(__name__)
-
-
+app.config.from_pyfile('settings.py')
 
 # Ensure responses aren't cached
 @app.after_request
@@ -23,12 +22,10 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-
 ##where to find the database and initialize SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app) 
-
 
 ##option to tell SQLALchemy that for every model it should just 
 #look at the columns that already exist in the table. This is called reflecting
@@ -47,7 +44,7 @@ app.wsgi_app = SassMiddleware(app.wsgi_app, {
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.config.from_pyfile('settings.py')
+
 
 # Custom filter
 app.jinja_env.filters["usd"] = usd
