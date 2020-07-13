@@ -6,6 +6,7 @@ import urllib.parse
 import crpapi
 import pandas as pd
 
+from functools import wraps
 from math import pi
 from crpapi import CRP
 from flask import redirect, render_template, request, jsonify, session
@@ -17,6 +18,16 @@ from bokeh.embed import components
 from bokeh.palettes import Category20c
 from bokeh.transform import cumsum
 
+
+def login_required(f):
+    """Decorate routes to require login."""
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("crp_id") is None:
+            return redirect("/")
+        return f(*args, **kwargs)
+    return decorated_function
 
 def extract_values(obj, key):
     """Pull all values of specified key from nested JSON."""

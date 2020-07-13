@@ -9,14 +9,16 @@ import jinja2
 from crpapi import CRP
 from flask_sqlalchemy import SQLAlchemy
 from app import app, Congress
-from helpers import extract_values, bar, candSummary, pie, buildSesh 
+from helpers import extract_values, bar, candSummary, pie, buildSesh, login_required 
 from flask import render_template, request, request, jsonify, redirect, flash, session
 from bokeh.embed import components
 
 @app.route('/', methods=["GET","POST"])
-def index():
+def login():
+    session.clear()
+    
     if request.method =='GET':
-        session.clear()
+        
         return render_template("index.html")
 
     else:
@@ -33,6 +35,7 @@ def index():
         return render_template("layout.html")
         
 @app.route("/sector", methods=['GET'])
+@login_required
 def sector():
     """CRP lib to pull from open secrets api"""
     crp = CRP()
@@ -44,6 +47,7 @@ def sector():
     return render_template("sector.html", sectors = sectors, pscript = pscript, pdiv = pdiv)
 
 @app.route("/contribs", methods=['GET'])
+@login_required
 def contribs():
     """CRP lib to pull from open secrets api"""
     crp = CRP()
