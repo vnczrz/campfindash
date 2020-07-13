@@ -4,7 +4,8 @@ import jinja2
 import sys
 
 from helpers import usd, datetimeformat
-from flask import Flask, render_template, config
+from flask import Flask, render_template, config, session
+from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_assets import Environment, Bundle
 
@@ -12,8 +13,11 @@ from sassutils.wsgi import SassMiddleware
 
 
 app = Flask(__name__)
-app.config.from_pyfile('settings.py')
+app.config['SECRET_KEY'] = b'6hc/_gsh,./;2ZZx3c6_s,1//'
 
+# app.config.from_pyfile('settings.py')
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 # Ensure responses aren't cached
 @app.after_request
 def after_request(response):
@@ -37,14 +41,15 @@ class Congress(db.Model):
     __table_args__ = { 'extend_existing': True }
     id = db.Column(db.Text, primary_key=True) 
 
+# Ensure templates are auto-reloaded
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 ## access sass
 app.wsgi_app = SassMiddleware(app.wsgi_app, {
     'app': ('static/assets/sass', 'app/static/assets/css/light-bootstrap-dashboard.css', 'app/static/assets/css/light-bootstrap-dashboard.css')
 })
 
-# Ensure templates are auto-reloaded
-app.config["TEMPLATES_AUTO_RELOAD"] = True
+
 
 
 # Custom filter

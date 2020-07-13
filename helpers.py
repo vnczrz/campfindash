@@ -8,7 +8,7 @@ import pandas as pd
 
 from math import pi
 from crpapi import CRP
-from flask import redirect, render_template, request, jsonify
+from flask import redirect, render_template, request, jsonify, session
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from bokeh.models import ColumnDataSource, Legend
 from bokeh.plotting import figure, output_file, show
@@ -16,6 +16,7 @@ from bokeh.plotting import figure
 from bokeh.embed import components
 from bokeh.palettes import Category20c
 from bokeh.transform import cumsum
+
 
 def extract_values(obj, key):
     """Pull all values of specified key from nested JSON."""
@@ -37,6 +38,34 @@ def extract_values(obj, key):
     results = extract(obj, arr, key)
     return results
 
+def buildSesh(obj):
+        """ build candidate navs """
+        
+        ##parse data that cant be displayed by jinja
+        if obj.party == "D":
+            obj.party = "Democrat"
+        elif obj.party == "R":
+            obj.party = "Republican"
+        else: 
+            obj.party = "Independent"
+        
+        ###build session
+        session["crp_id"] = obj.crp_id
+        session["fullname"] = obj.first_name + " " + obj.last_name
+        session["title"] = obj.title
+        session["state"] = obj.state
+        session["DOB"] = obj.date_of_birth
+        session["party"] = obj.party
+        session["next_election"] = obj.next_election
+        session["office"] = obj.office
+        session["phone"] = obj.phone
+        session["twitter"] = obj.twitter_account
+        session["facebook"] = obj.facebook_account
+        session["youtube"] = obj.youtube_account
+        session["url"] = obj.url
+        session["picurl"] = (f'https://theunitedstates.io/images/congress/225x275/{obj.id}.jpg')
+
+
 def candSummary(CRPid):
     """pull cand summary from API for top cards"""
     #create client
@@ -45,18 +74,14 @@ def candSummary(CRPid):
     data = crp.candidates.summary(CRPid)
     
     ###parse response adn return dictionar
-    try:
-        return {
-            "total": data['total'],
-            "spent": data['spent'],
-            "on_hand": data['cash_on_hand'],
-            "cycle": data["cycle"],
-            "source": data["source"],
-            "last_updated": data["last_updated"],
-            "origin": data["origin"]
-        }
-    except (KeyError, TypeError, ValueError):
-        return None  
+    session["total"] = data['total']
+    session["spent"] = data['spent']
+    session["on_hand"] = data['cash_on_hand']
+    session["cycle"] = data["cycle"]
+    session["source"] = data["source"]
+    session["last_updated"] = data["last_updated"]
+    session["origin"] = data["origin"]
+  
 
 def bar(obj):
     """pull data from crp api and create bokeh bar plot"""
@@ -130,10 +155,6 @@ def usd(value):
 def datetimeformat(value, format='%d-%m-%Y'):
     return value.strftime(format)
 
-
-####Created postgresql-encircled-34732 as DATABASE_URL
-
-####sqlite:///congress.sqlite3
 
 
 

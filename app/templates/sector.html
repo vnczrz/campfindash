@@ -1,0 +1,51 @@
+{%extends "layout.html" %}
+
+
+{% block main %}
+<div class ="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="card" style="border-radius: 12px;">
+            <div class="card-header">
+                <h4 class="card-title">Contributions by Sector</h4>
+            </div>
+            <div class="card-body ">
+                <table class="table-responsive table-striped table-hover table-sm">
+                    <thead>
+                        <th>Sector</th>
+                        <th>Individual Contributions</th>
+                        <th>PAC Contributions</th>
+                        <th>Total</th>
+                    </thead>
+                    <tbody>
+                    {% for sector in sectors %}   
+                        <tr>
+                            <td>{{ sector["@attributes"]["sector_name"] }}</td>
+                            <td>{{ sector["@attributes"]["indivs"] | usd }}</td>
+                            <td>{{ sector["@attributes"]["pacs"] | usd }}</td>
+                            <td>{{ sector["@attributes"]["total"] | usd }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table> 
+            </div>
+            <div class="card-footer">
+                <a href={{ "%s"%session["source"] }}>Source: Center for Responsive Politics</a><br>
+                <span class="mt-0" style="font-weight: 100; font-size: .7em;">Figures are 6-year numbers for Senators/Senate candidates; 2-year numbers for Representatives/House candidates.</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg col-md col-sm">
+        <div class="card p-1" style="border-radius: 12px;">
+            <div class="card-header">
+                <h4 class="card-title">Total Contributions by Sector</h4>
+            </div>
+            <div class="card-body container-fluid">
+                {{ pdiv  | safe }} 
+                
+                {{ pscript | safe}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} 
