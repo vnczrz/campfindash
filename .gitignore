@@ -4,3 +4,4 @@ __pycache__
 codesnippets.py
 dump.json
 app/congress.sqlite3
+flask_session
