@@ -21,7 +21,6 @@ from bokeh.transform import cumsum
 
 def login_required(f):
     """Decorate routes to require login."""
-
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("crp_id") is None:

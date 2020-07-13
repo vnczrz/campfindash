@@ -23,6 +23,29 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.1.1.min.js"
         crossorigin="anonymous"></script>
+
+    <style>
+    .card{
+      /* Add shadows to create the "card" effect */
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+    
+    /* On mouse-over, add a deeper shadow */
+    .card:hover{
+      box-shadow: 0 8px 20px 0 rgba(0,0,0,0.2);
+    }
+
+    .nav-item{
+        border: 0px royalblue;
+        transition: 0.3s;
+    }
+
+    .nav-item:hover{
+        border: 10px royalblue;
+    }
+    </style>
+
 </head>
 
 
@@ -38,16 +61,20 @@
                 </div>
                 <ul class="nav">
                     <li class="nav-item active">
-                        <a class="nav-link" method='GET' href="/sector">
-                            <i class="nc-icon nc-icon nc-chart-pie-36"></i>
-                            <p>Sector Contributions</p>
-                        </a>
+                        
+                            <a class="nav-link" method='GET' href="/sector">
+                                <i class="nc-icon nc-icon nc-chart-pie-36"></i>
+                                Sector Contributions
+                            </a>
+                        
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" method='GET' href="/contribs">
-                            <i class="nc-icon nc-icon nc-bank"></i>
-                            <p>Top Contributors</p>
-                        </a>
+                        
+                            <a class="nav-link nav-border" method='GET' href="/contribs">
+                                <i class="nc-icon nc-icon nc-bank"></i>
+                                Top Contributors
+                            </a>
+                        
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" >
@@ -120,7 +147,7 @@
                 <div class="container-fluid">
                     <div class="row mb-1">
                         <div class="col-md-4">
-                            <div class="card text-white text-center bg-success p-1" style="border-radius: 12px;">
+                            <div class="card-hover card text-white text-center bg-success p-1 " style="border-radius: 12px;">
                                 <div class="card-body">
                                     <h7 class="card-title text-white">Total Raised for {{ session["cycle"] }} Election Cycle </h7>
                                     <h2>{{ session["total"] | usd }}</h2>
@@ -173,6 +200,7 @@
                 
                 </div>
             </div>
+        </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
@@ -207,7 +235,7 @@
                     </nav>
                 </div>
             </footer>
-        </div>
+        
     </div>
 
 </body>
